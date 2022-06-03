@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="jumbotron">
+    <div class="container">
+    <h3>NLPiffy</h3>
+    <p class="lead">Natural Language Processing simplified...</p>
+    <a class="btn btn-lg btn-primary" href="{{url_for('index')}}" role="button">Refresh</a>
+  </div>
+  </div>
+  
+  <div class="container">
+  <p>Enter Your Text Below</p>
+  <form class="form-group mt-2 mt-md-0" method="POST" action="/analyze">
+     <textarea name="rawtext" cols="100" rows="7" class="form-control" required="true"></textarea>
+     <br/>
+     <button class="btn btn-outline-success " type="reset">Clear</button>
+      <button class="btn btn-outline-primary " type="submit">Nlp PipeLine</button>
+    </form>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h6>Your Text was</h6>    
+        <div class="alert alert-info" role="alert"><p>{{ctext}}</p></div>
+          <div class="alert alert-info" role="alert"><p>Time Elapsed: <span style="color:#0091EA;">{{ final_time }} </span></p>
+      </div>
+    
+      </div>
+      
+    </div>
+  </div>
+  <div class="tab-content clearfix">
+    <div class="tab-pane active" id="1a">
+      <h3>Tokens</h3>
+      {% for item in custom_tokens %}
+      <li>{{item}}</li>
+      {% endfor %}
+    </div>
+    <div class="tab-pane" id="1b">
+      <h3>Word Info</h3>
+      <div class="container">
+         <!-- WORD INFO -->
+        <div class="card-footer text-muted">
+              <table class="table table-striped table-hover table-dark" >
+                  
+              <thead>
+                <tr>
+                  <th scope="col">Token</th>
+                  <th scope="col">Lemma</th>
+
+                  <th scope="col">Stopword</th>
+                </tr>
+                {% for item in custom_wordinfo %}
+              </thead>
+              <tbody>
+                <tr>
+                  
+                  <td>{{item[0]}}</td>
+                  <td>{{item[1]}}</td>
+                   <td>{{item[2]}}</td>
+                  <td>{{item[3]}}</td>
+                   <td>{{item[4]}}</td>
+                </tr>
+                 {% endfor %}
+            </tbody></table>
+
+            </div>
+
+            <!-- WORD INFO -->
+          </div>
+    </div>
+    <div class="tab-pane" id="2a">
+      <h3>Named Entities</h3>
+       {% for item in custom_namedentities %}
+      <li><span class="badge badge-success">{{item}}</span></li>
+      {% endfor %}
+      <tr>
+        <h3>Lowered Text</h3>
+      </tr>
+      {% for item in lowered_text  %}
+    </thead>
+    <tbody>
+      <tr>
+        
+        <td>{{item}}</td>
+        <td></td>
+         <td></td>
+        <td></td>
+       
+      </tr>
+       {% endfor %}
+    </div>
+  </div>
+</div>
+  <div class="tab-pane" id="4a">
+  <h3>Sentiment Analysis</h3>
+      <div class="card-footer text-muted">
+<table class="table table-striped table-hover table-dark" >
+<thead>
+  <tr>
+    <th scope="col">Sentiment</th>
+    <th scope="col">Polarity</th>
+    <th scope="col">Subjectivity</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <th scope="row">Score:</th>
+    <td>{{blob_sentiment}}</td>
+    <td>{{blob_subjectivity}}</td>
+  </tr>
+</tbody></table>
+
+</div>
+<tr>
+  <h3>Length of the whole text</h3>
+</tr>
+{% for item in length_text  %}
+</thead>
+<tbody>
+<tr>
+  
+  <td>{{item}}</td>
+  <td></td>
+   <td></td>
+  <td></td>
+ 
+</tr>
+ {% endfor %}
+
+ <tr>
+  <h3>Whole Text without punctuation</h3>
+</tr>
+{% for item in remove_punctuation  %}
+</thead>
+<tbody>
+<tr>
+  
+  <td>{{item}}</td>
+  <td></td>
+   <td></td>
+  <td></td>
+ 
+</tr>
+ {% endfor %}
+ <tr>
+  <h3>Text without whitespace</h3>
+</tr>
+{% for item in remove_whitespace  %}
+</thead>
+<tbody>
+<tr>
+  
+  <td>{{item}}</td>
+  <td></td>
+   <td></td>
+  <td></td>
+ 
+</tr>
+ {% endfor %}
+
+</div>
+</body>
+</html>
